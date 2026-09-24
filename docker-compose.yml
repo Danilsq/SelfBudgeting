@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: selfbudgeting_db
+    environment:
+      POSTGRES_USER: selfbudgeting
+      POSTGRES_PASSWORD: selfbudgeting
+      POSTGRES_DB: selfbudgeting
+    ports:
+      - "5432:5432"
+    volumes:
+      - selfbudgeting_pgdata:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./db/seed_categories.sql:/docker-entrypoint-initdb.d/02_seed_categories.sql
+
+volumes:
+  selfbudgeting_pgdata:
